@@ -3,6 +3,7 @@ package com.example.test_task_nwcode
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: PixabayViewModel
 
-    private lateinit var mapResponse: String
+    private var mapResponse: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -32,16 +33,9 @@ class MainActivity : AppCompatActivity() {
 
         NavigationUI.setupActionBarWithNavController(this, navController)
 
-        println("228")
-
         getPixabayResponse()
 
-        binding.textView.text = mapResponse
-//        Log.d("yertyertyertyer", mapResponse)
-        /*viewModel = ViewModelProvider(this)[PixabayViewModel::class.java]
-        viewModel.getPixabayResponse()
-        //binding.textView.text = viewModel.getPixabayResponse().toString()
-        Log.d("BLABLA", viewModel.getPixabayResponse().toString())*/
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -50,10 +44,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getPixabayResponse() {
-        mapResponse = "123"
+        //mapResponse = "123"
         RetrofitClient.api.getAllData(
             "33106230-b104905cd7ff74ed17e2229af",
-            "yellow+flowers",
+            "anime",
             "photo"
         ).enqueue(object :
             Callback<PixabayResponse> {
@@ -63,17 +57,16 @@ class MainActivity : AppCompatActivity() {
                 response: Response<PixabayResponse>
             ) {
                 if (response.body() != null) {
-                    println(response.body()!!.hits.toString())
-                    Log.d("yertyertyertyer", response.body()!!.hits.toString())
-                    mapResponse = response.body()!!.hits.toString()
+                    Log.d("7456745674567", response.body()!!.hits.toString())
+                    //mapResponse = response.body()!!.hits.toString()
+                    //binding.textView.text = mapResponse.toString()
                 } else {
-                    mapResponse = "null siooqa"
                     return
                 }
             }
 
             override fun onFailure(call: Call<PixabayResponse>, t: Throwable) {
-                mapResponse = "faillll"
+                //mapResponse = "faillll"
                 Log.d("qwerqwy", t.message.toString())
             }
         })

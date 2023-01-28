@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.example.test_task_nwcode.R
 import com.example.test_task_nwcode.databinding.FragmentCategoriesBinding
@@ -53,20 +54,23 @@ class CategoriesFragment : Fragment() {
 
         _binding = FragmentCategoriesBinding.inflate(inflater, container, false)
 
+
         getPixabayResponse()
         binding?.apply {
             category1.text = Categories.CATS.category
+            createBundleAndNavigate(category1)
             category2.text = Categories.NATURE.category
+            createBundleAndNavigate(category2)
             category3.text = Categories.ANIME.category
+            createBundleAndNavigate(category3)
             category4.text = Categories.CARS.category
+            createBundleAndNavigate(category4)
             category5.text = Categories.ARCHITECTURE.category
+            createBundleAndNavigate(category5)
             category6.text = Categories.MINIMALISM.category
+            createBundleAndNavigate(category6)
         }
-        binding?.apply {
-            category1.setOnClickListener {
-                findNavController().navigate(R.id.action_categoriesFragment_to_imageListFragment)
-            }
-        }
+
         // Inflate the layout for this fragment
         return binding?.root
     }
@@ -74,6 +78,18 @@ class CategoriesFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun createBundleAndNavigate(view: TextView) {
+        view.setOnClickListener {
+            val bundle = bundleOf("category" to view.text)
+            //arguments?.putString("ARG_PARAM1",Categories.CATS.category)
+            findNavController().navigate(
+                R.id.action_categoriesFragment_to_imageListFragment,
+                bundle
+            )
+        }
+
     }
 
 

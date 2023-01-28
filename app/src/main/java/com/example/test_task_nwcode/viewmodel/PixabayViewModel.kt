@@ -15,11 +15,11 @@ class PixabayViewModel : ViewModel() {
     private var pixabayResponseLiveData = MutableLiveData<List<Hit>>()
 
 
-    fun getPixabayResponse() {
+    fun getPixabayResponse(category: String) {
 
         RetrofitClient.api.getAllData(
             "33106230-b104905cd7ff74ed17e2229af",
-            "moon",
+            category,
             "photo"
         ).enqueue(object :
             Callback<PixabayResponse> {
@@ -30,10 +30,10 @@ class PixabayViewModel : ViewModel() {
             ) {
                 if (response.body() != null) {
                     println(response.body()!!.hits.toString())
-                    Log.d("yertyertyertyer", response.body()!!.hits.toString())
+                    Log.d("Response answer:", response.body()!!.hits.toString())
                     pixabayResponseLiveData.value = response.body()!!.hits
                 } else {
-                    //println(response.body()!!.hits.toString())
+                    Log.d("Response answer:", "null")
                     return
                 }
             }

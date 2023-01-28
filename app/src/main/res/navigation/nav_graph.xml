@@ -14,10 +14,23 @@
             android:id="@+id/action_categoriesFragment_to_imageListFragment"
             app:destination="@id/imageListFragment"
             app:enterAnim="@android:anim/slide_in_left" />
+        <argument
+            android:name="category"
+            app:argType="string"
+            android:defaultValue="sun" />
     </fragment>
     <fragment
         android:id="@+id/imageListFragment"
         android:name="com.example.test_task_nwcode.ui.ImageListFragment"
         android:label="fragment_image_list"
-        tools:layout="@layout/fragment_image_list" />
+        tools:layout="@layout/fragment_image_list" >
+        <action
+            android:id="@+id/action_imageListFragment_to_imageDescriptionFragment"
+            app:destination="@id/imageDescriptionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/imageDescriptionFragment"
+        android:name="com.example.test_task_nwcode.ui.ImageDescriptionFragment"
+        android:label="fragment_image_description"
+        tools:layout="@layout/fragment_image_description" />
 </navigation>

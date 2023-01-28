@@ -25,7 +25,6 @@ import retrofit2.Response
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-private var mapResponse: List<Hit>? = null
 
 /**
  * A simple [Fragment] subclass.
@@ -39,7 +38,6 @@ class ImageListFragment : Fragment() {
     private var _binding: FragmentImageListBinding? = null
     private val binding get() = _binding
     private lateinit var imageAdapter: ImageAdapter
-    private var mapResponse: List<Hit>? = null
 
     private lateinit var viewModel: PixabayViewModel
 
@@ -66,10 +64,13 @@ class ImageListFragment : Fragment() {
         }
 
         viewModel = ViewModelProvider(this)[PixabayViewModel::class.java]
-        viewModel.getPixabayResponse()
+        //viewModel.getPixabayResponse("cat")
+        arguments?.getString("category")?.let { viewModel.getPixabayResponse(it) }
         viewModel.observeMovieLiveData().observe(viewLifecycleOwner, Observer { imageList ->
             imageAdapter.setImageList(imageList)
         })
+
+        //binding?.recyclerView.set
 
         return binding?.root
     }

@@ -61,9 +61,12 @@ dependencies {
     //Recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
-
     //Cardview
     implementation 'androidx.cardview:cardview:1.0.0'
+
+    //Lotie
+    def lottieVersion = "3.4.0"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 
 
 }

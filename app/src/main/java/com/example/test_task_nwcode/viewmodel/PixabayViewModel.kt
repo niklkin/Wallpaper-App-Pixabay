@@ -39,7 +39,7 @@ class PixabayViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<PixabayResponse>, t: Throwable) {
-                Log.d("qwerqwy", t.message.toString())
+                Log.d("Fail to connect:", t.message.toString())
             }
         })
     }

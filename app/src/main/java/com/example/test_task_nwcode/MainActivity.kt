@@ -1,24 +1,37 @@
 package com.example.test_task_nwcode
 
 import android.animation.ObjectAnimator
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
+import android.net.NetworkInfo
+import android.net.NetworkRequest
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.test_task_nwcode.databinding.ActivityMainBinding
 import com.example.test_task_nwcode.model.PixabayResponse
 import com.example.test_task_nwcode.repository.RetrofitClient
+import com.example.test_task_nwcode.ui.NoInternetActivity
+import com.example.test_task_nwcode.utils.InternetConnectionReceiver
 import com.example.test_task_nwcode.viewmodel.PixabayViewModel
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), InternetConnectionReceiver.ConnectivityReceiverListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: PixabayViewModel
 
@@ -32,11 +45,22 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
         val navController = navHostFragment.navController
 
+        registerReceiver(
+            InternetConnectionReceiver(),
+            IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        )
+
         NavigationUI.setupActionBarWithNavController(this, navController)
 
+    }
 
+    override fun onNetworkConnectionChanged(isConnected: Boolean) {
+        showNetworkMessage(isConnected)
+    }
 
-
+    override fun onResume() {
+        super.onResume()
+        InternetConnectionReceiver.connectivityReceiverListener = this
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -44,32 +68,19 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp()
     }
 
-    fun getPixabayResponse() {
-        //mapResponse = "123"
-        RetrofitClient.api.getAllData(
-            "33106230-b104905cd7ff74ed17e2229af",
-            "anime",
-            "photo"
-        ).enqueue(object :
-            Callback<PixabayResponse> {
 
-            override fun onResponse(
-                call: Call<PixabayResponse>,
-                response: Response<PixabayResponse>
-            ) {
-                if (response.body() != null) {
-                    Log.d("7456745674567", response.body()!!.hits.toString())
-                    //mapResponse = response.body()!!.hits.toString()
-                    //binding.textView.text = mapResponse.toString()
-                } else {
-                    return
-                }
-            }
+    private fun startNoInternetActivity() {
+        startActivity(Intent(this, NoInternetActivity::class.java))
+        finish()
 
-            override fun onFailure(call: Call<PixabayResponse>, t: Throwable) {
-                //mapResponse = "faillll"
-                Log.d("qwerqwy", t.message.toString())
-            }
-        })
+    }
+
+    private fun showNetworkMessage(isConnected: Boolean) {
+        if (!isConnected) {
+            startNoInternetActivity()
+        } else {
+            Log.d("NETWORK STATUS", "CONNECTED TO THE INTERNET")
+        }
+
     }
 }

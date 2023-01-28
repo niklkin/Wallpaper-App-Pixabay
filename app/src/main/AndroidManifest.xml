@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
 
@@ -15,20 +16,32 @@
         android:theme="@style/Theme.Testtasknwcode"
         tools:targetApi="31">
         <activity
+            android:name=".ui.NoInternetActivity"
+            android:exported="false"
+            android:label="@string/title_activity_no_internet"
+            android:theme="@style/Theme.Testtasknwcode.NoActionBar" />
+        <activity
             android:name=".ui.SplashScreenActivity"
             android:exported="true"
             android:label="@string/title_activity_splash_screen"
             android:theme="@style/Theme.Testtasknwcode.NoActionBar">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
+            android:exported="true" />
+        <receiver
+            android:name=".utils.InternetConnectionReceiver"
+            android:enabled="true"
             android:exported="true">
-        </activity>
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

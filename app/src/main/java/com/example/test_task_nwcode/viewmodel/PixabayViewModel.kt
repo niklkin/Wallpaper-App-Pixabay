@@ -17,11 +17,6 @@ class PixabayViewModel : ViewModel() {
 
     fun getPixabayResponse() {
 
-        var map: MutableMap<String, String> = mutableMapOf()
-        map["key"] = "33106230-b104905cd7ff74ed17e2229af"
-        map["q"] = "yellow+flowers"
-        map["image_type"] = "photo"
-
         RetrofitClient.api.getAllData(
             "33106230-b104905cd7ff74ed17e2229af",
             "moon",

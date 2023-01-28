@@ -1,5 +1,6 @@
 package com.example.test_task_nwcode
 
+import android.animation.ObjectAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         NavigationUI.setupActionBarWithNavController(this, navController)
 
-        getPixabayResponse()
+
 
 
     }

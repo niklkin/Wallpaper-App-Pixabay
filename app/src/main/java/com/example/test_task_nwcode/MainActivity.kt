@@ -35,9 +35,7 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity(), InternetConnectionReceiver.ConnectivityReceiverListener {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: PixabayViewModel
 
-    private var mapResponse: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)

@@ -42,7 +42,6 @@ class PixabayViewModel : ViewModel() {
 
             override fun onFailure(call: Call<PixabayResponse>, t: Throwable) {
                 Log.d("Failed to connect:", call.toString())
-                //MainActivity().alertDialogNoInternet()
             }
         })
     }

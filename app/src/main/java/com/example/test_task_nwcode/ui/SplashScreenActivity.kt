@@ -29,12 +29,6 @@ class SplashScreenActivity : AppCompatActivity() {
         setContentView(binding.root)
         runTimer()
 
-//        Handler(Looper.myLooper()!!).postDelayed({
-//            startActivity(Intent(this, MainActivity::class.java))
-//            binding.progressBar.progress+=10
-//            finish()
-//        },5000)
-
     }
 
     private fun runTimer() {

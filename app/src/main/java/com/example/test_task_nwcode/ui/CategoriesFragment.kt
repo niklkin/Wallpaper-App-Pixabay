@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.example.test_task_nwcode.R
@@ -117,12 +119,30 @@ class CategoriesFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<PixabayResponse>, t: Throwable) {
-                Log.d("qwerqwy", t.message.toString())
+                alertDialogNoInternet()
             }
         })
 
 
     }
+
+    fun alertDialogNoInternet() {
+        val builder = context?.let { AlertDialog.Builder(it) }
+        builder?.setTitle("APi CONNECTION FAIL")
+        builder?.setMessage("Service not available")
+//builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = x))
+
+        builder?.setPositiveButton("TRY AGAIN") { dialog, which ->
+            getPixabayResponse()
+        }
+
+        builder?.setNegativeButton("CANCEL") { dialog, which ->
+            findNavController().navigate(R.id.action_imageListFragment_to_categoriesFragment)
+        }
+
+        builder?.show()
+    }
+
 
     companion object {
         /**

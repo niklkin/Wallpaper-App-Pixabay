@@ -1,9 +1,11 @@
 package com.example.test_task_nwcode.viewmodel
 
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.test_task_nwcode.MainActivity
 import com.example.test_task_nwcode.model.Hit
 import com.example.test_task_nwcode.model.PixabayResponse
 import com.example.test_task_nwcode.repository.RetrofitClient
@@ -39,7 +41,8 @@ class PixabayViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<PixabayResponse>, t: Throwable) {
-                Log.d("Fail to connect:", t.message.toString())
+                Log.d("Failed to connect:", call.toString())
+                //MainActivity().alertDialogNoInternet()
             }
         })
     }
@@ -47,4 +50,8 @@ class PixabayViewModel : ViewModel() {
     fun observeMovieLiveData(): LiveData<List<Hit>> {
         return pixabayResponseLiveData
     }
+
+
+
+
 }

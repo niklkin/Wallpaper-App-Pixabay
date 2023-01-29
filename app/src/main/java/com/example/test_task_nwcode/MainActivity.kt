@@ -13,6 +13,8 @@ import android.net.NetworkRequest
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -50,6 +52,8 @@ class MainActivity : AppCompatActivity(), InternetConnectionReceiver.Connectivit
             IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
         )
 
+
+
         NavigationUI.setupActionBarWithNavController(this, navController)
 
     }
@@ -69,11 +73,15 @@ class MainActivity : AppCompatActivity(), InternetConnectionReceiver.Connectivit
     }
 
 
+
+
     private fun startNoInternetActivity() {
         startActivity(Intent(this, NoInternetActivity::class.java))
         finish()
 
     }
+
+
 
     private fun showNetworkMessage(isConnected: Boolean) {
         if (!isConnected) {

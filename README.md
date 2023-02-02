@@ -1,7 +1,5 @@
-# test-task-nwcode
-Nikita Igolkin
 Dependecies:
-  Retrofit
-  Glide
-  Lottie
+  Retrofit,
+  Glide,
+  Lottie,
   RecyclerView
